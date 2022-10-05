@@ -29,8 +29,14 @@ const App = () => {
             <Route path='/' element={<MainSharedLayout />}>
               <Route index element={<Landing />} />
               <Route path='user/*' element={<UserRoutes />} />
-              <Route path='build' element={<UserProtectedRoute user={user}><Build /></UserProtectedRoute>} />
-              <Route path='game/*' element={<UserProtectedRoute user={user}><GameRoutes /></UserProtectedRoute>} />
+              <Route path='build' element={
+                <UserProtectedRoute user={user}>
+                  <Build />
+                </UserProtectedRoute>} />
+              <Route path='game/*' element={
+                <UserProtectedRoute user={user}>
+                  <GameRoutes />
+                </UserProtectedRoute>} />
               <Route path='buildold' element={<GetAllCards />} />
               <Route path='*' element={<NotFound />} />
             </Route>

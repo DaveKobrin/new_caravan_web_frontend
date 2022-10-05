@@ -67,8 +67,8 @@ body {
   background-color: black;
 }
 .login-screen {
-  background-image: url(../public/images/menu_background.jpg);
-  height: 720px;
+  background-image: url(../public/images/menu_background.png);
+  height: 1080px;
   width: 1250px;
   margin: 0 auto;
   margin-top: 69px;
