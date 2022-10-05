@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Build, Landing, MainSharedLayout, NotFound } from './views';
 import { UserProtectedRoute, UserRoutes, GameRoutes } from './routes';
 import GetAllCards from './BuildDeck/GetAllCards';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 
 // import UserContext from './contexts/UserContext';
 
@@ -29,22 +29,14 @@ const App = () => {
             <Route path='/' element={<MainSharedLayout />}>
               <Route index element={<Landing />} />
               <Route path='user/*' element={<UserRoutes />} />
-              <Route
-                path='build'
-                element={
-                  <UserProtectedRoute user={user}>
-                    <Build />
-                  </UserProtectedRoute>
-                }
-              />
-              <Route
-                path='game/*'
-                element={
-                  <UserProtectedRoute user={user}>
-                    <GameRoutes />
-                  </UserProtectedRoute>
-                }
-              />
+              <Route path='build' element={
+                <UserProtectedRoute user={user}>
+                  <Build />
+                </UserProtectedRoute>} />
+              <Route path='game/*' element={
+                <UserProtectedRoute user={user}>
+                  <GameRoutes />
+                </UserProtectedRoute>} />
               <Route path='buildold' element={<GetAllCards />} />
               <Route path='*' element={<NotFound />} />
             </Route>
