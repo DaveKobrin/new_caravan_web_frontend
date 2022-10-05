@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom"
-import { SelectGameType, MatchPlayer, LocalGame, WebSocketGame } from '../views'
+import { GameLayout, SelectGameType, MatchPlayer, LocalGame, WebSocketGame } from '../views'
 import { GameContext } from "../App";
 // import { useContext } from "react";
 import { UserProtectedRoute } from './'
@@ -20,12 +20,12 @@ const GameRoutes = () => {
     return (
         <GameContext.Provider value={{gameData, setGameData}}>
             <Routes>
-                {/* <Route element={<GameLayout />}> */}
-                <Route path='/' element={<SelectGameType />} />
-                <Route path='match-player' element={<MatchPlayer onMatch={handleMatch} />} />
-                <Route path='local' element={<LocalGame />} />
-                <Route path='web' element={<UserProtectedRoute user={matched}><WebSocketGame /></UserProtectedRoute>} />
-                {/* </Route> */}
+                <Route element={<GameLayout />}>
+                    {/* <Route index element={<SelectGameType />} /> */}
+                    <Route index element={<MatchPlayer onMatch={handleMatch} />} />
+                    <Route path='local' element={<LocalGame />} />
+                    <Route path='web' element={<UserProtectedRoute user={matched}><WebSocketGame /></UserProtectedRoute>} />
+                </Route>
             </Routes>
         </GameContext.Provider>
     );

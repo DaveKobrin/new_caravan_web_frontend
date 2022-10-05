@@ -11,3 +11,4 @@ export {default as SelectGameType} from './SelectGameType';
 export {default as MatchPlayer} from './MatchPlayer';
 export {default as LocalGame} from './LocalGame';
 export {default as WebSocketGame} from './WebSocketGame';
+export {default as GameLayout} from './GameLayout';

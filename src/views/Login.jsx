@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 // import UserContext from "../contexts/UserContext";
 import { UserContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const { user, setUser } = useContext(UserContext);
+  const  setUser  = useContext(UserContext).setUser;
   const [gTag, setGtag] = useState('');
   const [pass, setPass] = useState('');
 
