@@ -1,8 +1,9 @@
 import { useContext } from "react";
-// import UserContext from "../contexts/UserContext";
+import './GameBoard.css';
 import { GameContext, UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { CaravanPair, PlayerStatus } from '../components';
 
 
 const LocalGame = () => {
@@ -67,7 +68,9 @@ const LocalGame = () => {
                 isAscending: null,
                 curRunValue: null,
                 hasSuit: false,
-                curSuit: null
+                curSuit: null,
+                nextValuePos: 0,
+                nextModifierPos: [],
             }
             return caravan;
         });
@@ -81,8 +84,20 @@ const LocalGame = () => {
     },[]);
 
     return (
-        <section>
-            <h1>LocalGame page</h1>
+        <section className="game-container">
+            <div className="play-field">
+                <CaravanPair />
+                <CaravanPair />
+                <CaravanPair />
+            </div>
+            <div className="status-area">
+                <div className={'rotate-180'} >
+                    <PlayerStatus  />
+                </div>
+                <div>
+                    <PlayerStatus />
+                </div>  
+            </div>
         </section>
     );
 }
