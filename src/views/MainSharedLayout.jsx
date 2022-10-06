@@ -1,25 +1,29 @@
-import { Link, Outlet } from "react-router-dom";
-
+import { Link, Outlet } from 'react-router-dom';
+import './MainSharedLayout.css';
 const MainSharedLayout = () => {
-    return (
-        <>
-            <header>
-                <nav>
-                    <Link to='/'> Home </Link>
-                    |
-                    <Link to='/user'> User Management </Link>
-                    |
-                    <Link to='/build'> Build Your Deck </Link>
-                    |
-                    <Link to='/game'> Play A Game </Link>
-                </nav>
-            </header>
-            <hr />
-            <section>
-                <Outlet />
-            </section>
-        </>
-    );
-}
+  return (
+    <>
+      <header>
+        <nav>
+          <Link to='/' className='link'>
+            HOME
+          </Link>
+          <Link to='/user' className='link'>
+            USER MANAGEMENT
+          </Link>
+          <Link to='/build' className='link'>
+            BUILD YOUR DECK
+          </Link>
+          <Link to='/game' className='link'>
+            PLAY A GAME
+          </Link>
+        </nav>
+      </header>
+      <section>
+        <Outlet />
+      </section>
+    </>
+  );
+};
 
 export default MainSharedLayout;

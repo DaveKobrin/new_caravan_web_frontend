@@ -1,0 +1,28 @@
+header {
+  font-size: 1.4em;
+  border-top: 5px solid rgb(25, 149, 21);
+  border-bottom: 5px solid rgb(25, 149, 21);
+  background-image: url(../../public/images/green-screen-background.png);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.link + .link {
+  margin: 2rem;
+}
+.link {
+  text-decoration: none;
+}
+.link:visited {
+  color: rgb(25, 149, 21);
+}
+
+.link:hover {
+  background-color: rgba(25, 149, 21, 0.5);
+}
+
+header:nth-child(1) {
+  border-top: none;
+}

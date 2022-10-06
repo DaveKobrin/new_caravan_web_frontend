@@ -1,23 +1,29 @@
-import { Link, Outlet } from "react-router-dom";
-
+import { Link, Outlet } from 'react-router-dom';
+import './MainSharedLayout.css';
 const UserLayout = () => {
-    return (
-        <>
-            <header>
-                <Link to='/user/login'> login </Link>
-                |
-                <Link to='/user/register'> register </Link>
-                |
-                <Link to='/user/logout'> logout </Link>
-                |
-                <Link to='/user/delete'> delete</Link>
-            </header>
-            <hr />
-            <section>
-                <Outlet />
-            </section>
-        </>
-    );
-}
+  return (
+    <>
+      <header>
+        <nav>
+          <Link to='/user/login' className='link'>
+            LOGIN
+          </Link>
+          <Link to='/user/register' className='link'>
+            REGISTER
+          </Link>
+          <Link to='/user/logout' className='link'>
+            LOGOUT
+          </Link>
+          <Link to='/user/delete' className='link'>
+            DELETE
+          </Link>
+        </nav>
+      </header>
+      <section>
+        <Outlet />
+      </section>
+    </>
+  );
+};
 
 export default UserLayout;

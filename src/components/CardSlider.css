@@ -1,3 +1,6 @@
 .slider {
-    display: flex;
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  margin: 1rem;
 }
