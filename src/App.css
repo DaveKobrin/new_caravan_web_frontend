@@ -109,6 +109,11 @@ input[type='password']:focus {
   border: none;
   font-size: 2rem;
 }
-.loogin-button:active {
+.login-button:active {
   border: solid 2px rgba(25, 149, 21, 0.5);
+}
+
+.link { 
+  text-decoration: none;
+  color: rgb(25, 149, 21);
 }
