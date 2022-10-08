@@ -44,7 +44,7 @@ const Login = () => {
         <input type='text' id='gamertag' value={gTag} onChange={(e) => setGtag(e.target.value)} placeholder='your gamer tag' />
         <label htmlFor='email'>Email</label>
         <input type='text' id='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='your email' />
-        <label htmlFor='password'>Gamer Tag</label>
+        <label htmlFor='password'>Password</label>
         <input type='password' id='password' value={pass} onChange={(e) => setPass(e.target.value)} placeholder='your password' />
         <input type='submit' value='register' className='login-button' style={{ marginBottom: '20px' }} />
       </form>

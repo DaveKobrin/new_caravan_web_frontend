@@ -1,8 +1,9 @@
 import { useContext } from "react";
-// import UserContext from "../contexts/UserContext";
+import './GameBoard.css';
 import { GameContext, UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { CaravanPair, PlayerStatus } from '../components';
 
 
 const LocalGame = () => {
@@ -53,7 +54,7 @@ const LocalGame = () => {
         tmpGame.player2 = tmpGame.otherPlayer;
         tmpGame.isGameOver = false;
         tmpGame.isPlayer1Turn = true;
-        tmpGame.phase = 0;
+        tmpGame.phase = 1;
         tmpGame.p1Cards = {hand:[], drawPile: randomize([...tmpGame.player1.deck])};
         tmpGame.p2Cards = {hand:[], drawPile: randomize([...tmpGame.player2.deck])};
         tmpGame.caravans = tmpGame.caravanNames.map((name, i) => {
@@ -67,7 +68,9 @@ const LocalGame = () => {
                 isAscending: null,
                 curRunValue: null,
                 hasSuit: false,
-                curSuit: null
+                curSuit: null,
+                nextValuePos: 0,
+                nextModifierPos: [],
             }
             return caravan;
         });
@@ -82,7 +85,22 @@ const LocalGame = () => {
 
     return (
         <section>
-            <h1>LocalGame page</h1>
+            {gameData.phase === 1 || gameData.phase === 2?
+            <div className="game-container">
+                <div className="play-field">
+                    <CaravanPair idx1={gameData.isPlayer1Turn?3:0} idx2={gameData.isPlayer1Turn?0:3} />
+                    <CaravanPair idx1={gameData.isPlayer1Turn?4:1} idx2={gameData.isPlayer1Turn?1:4} />
+                    <CaravanPair idx1={gameData.isPlayer1Turn?5:2} idx2={gameData.isPlayer1Turn?2:5} />
+                </div>
+                <div className="status-area">
+                    <div className={'rotate-180'} >
+                        <PlayerStatus isFaceUp={false} playerCards={gameData.isPlayer1Turn?gameData.p2Cards:gameData.p1Cards} />
+                    </div>
+                    <div>
+                        <PlayerStatus isFaceUp={true} playerCards={gameData.isPlayer1Turn?gameData.p1Cards:gameData.p2Cards} />
+                    </div>  
+                </div>
+            </div>:null}
         </section>
     );
 }

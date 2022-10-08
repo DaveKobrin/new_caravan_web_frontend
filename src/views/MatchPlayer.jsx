@@ -39,9 +39,9 @@ const MatchPlayer = () => {
             <form onSubmit={handleSubmit} className='login-form'>
                 <label htmlFor='gamertag'>Gamer Tag</label>
                 <input type='text' id='gamertag' value={gTag} onChange={(e) => setGtag(e.target.value)} placeholder='your gamer tag'/>
-                <label htmlFor='password'>Gamer Tag</label>
+                <label htmlFor='password'>Password</label>
                 <input type='password' id='password' value={pass} onChange={(e) => setPass(e.target.value)} placeholder='your password'/>
-                <input type='submit' value='Login Player 2' className="login-button"/>
+                <input type='submit' value='Login 2' className="login-button"/>
             </form>
         </section>
     );

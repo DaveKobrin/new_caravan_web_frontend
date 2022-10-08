@@ -1,0 +1,64 @@
+.game-container {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid green;
+    padding: 1em;
+}
+
+.play-field {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid green;
+}
+
+.status-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid green;
+}
+
+.rotate-180 {
+    transform: rotateZ(180deg);
+}
+
+.player-status{
+    margin: .3em;
+}
+
+.draw-and-discard {
+    min-width: 20em;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: .3em;
+}
+
+.hand img{
+    margin-right: -5.5em;
+}
+
+.discard, .drop-target{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid green;
+    min-height: 9em;
+    min-width: 7em;
+}
+
+.caravan {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border: 1px solid green;
+    min-height: 25em;
+    min-width: 20em;
+    padding: 1em;
+}
