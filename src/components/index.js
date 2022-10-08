@@ -5,3 +5,4 @@ export { default as CardSlider} from './CardSlider';
 export { default as Caravan} from './Caravan';
 export { default as CaravanPair} from './CaravanPair';
 export { default as PlayerStatus} from './PlayerStatus';
+export { default as CardRow } from './CardRow';

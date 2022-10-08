@@ -3,6 +3,7 @@ import './Card.css';
 
 const Card = (props) => {
   const { card, idx, isFaceUp, onClick } = props;
+  const API = process.env.REACT_APP_CARAVAN_API;
   return (
     <>
       {/* {console.log(card, idx, isFaceUp)} */}
@@ -12,7 +13,7 @@ const Card = (props) => {
           onClick(idx);
         }}
       >
-        {isFaceUp ? <CardImg src={process.env.REACT_APP_CARAVAN_API + '/images/' + card.face} alt={card.name + ' of ' + card.suit} isFace={true} /> : <CardImg src={process.env.REACT_APP_CARAVAN_API + '/images/' + card.back} alt={'Card Back ' + card.set} isFace={false} />}
+        {isFaceUp ? <CardImg src={API + '/images/' + card.face} alt={card.name + ' of ' + card.suit} isFace={true} /> : <CardImg src={API + '/images/' + card.back} alt={'Card Back ' + card.set} isFace={false} />}
       </div>
     </>
   );

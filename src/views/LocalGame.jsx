@@ -54,7 +54,7 @@ const LocalGame = () => {
         tmpGame.player2 = tmpGame.otherPlayer;
         tmpGame.isGameOver = false;
         tmpGame.isPlayer1Turn = true;
-        tmpGame.phase = 0;
+        tmpGame.phase = 1;
         tmpGame.p1Cards = {hand:[], drawPile: randomize([...tmpGame.player1.deck])};
         tmpGame.p2Cards = {hand:[], drawPile: randomize([...tmpGame.player2.deck])};
         tmpGame.caravans = tmpGame.caravanNames.map((name, i) => {
@@ -84,20 +84,23 @@ const LocalGame = () => {
     },[]);
 
     return (
-        <section className="game-container">
-            <div className="play-field">
-                <CaravanPair />
-                <CaravanPair />
-                <CaravanPair />
-            </div>
-            <div className="status-area">
-                <div className={'rotate-180'} >
-                    <PlayerStatus  />
+        <section>
+            {gameData.phase === 1 || gameData.phase === 2?
+            <div className="game-container">
+                <div className="play-field">
+                    <CaravanPair idx1={gameData.isPlayer1Turn?3:0} idx2={gameData.isPlayer1Turn?0:3} />
+                    <CaravanPair idx1={gameData.isPlayer1Turn?4:1} idx2={gameData.isPlayer1Turn?1:4} />
+                    <CaravanPair idx1={gameData.isPlayer1Turn?5:2} idx2={gameData.isPlayer1Turn?2:5} />
                 </div>
-                <div>
-                    <PlayerStatus />
-                </div>  
-            </div>
+                <div className="status-area">
+                    <div className={'rotate-180'} >
+                        <PlayerStatus isFaceUp={false} playerCards={gameData.isPlayer1Turn?gameData.p2Cards:gameData.p1Cards} />
+                    </div>
+                    <div>
+                        <PlayerStatus isFaceUp={true} playerCards={gameData.isPlayer1Turn?gameData.p1Cards:gameData.p2Cards} />
+                    </div>  
+                </div>
+            </div>:null}
         </section>
     );
 }
