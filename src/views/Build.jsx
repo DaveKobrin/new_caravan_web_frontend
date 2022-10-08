@@ -39,6 +39,7 @@ const Build = () => {
     setCardsInDeck(tmp);
   }, []);
 
+  //wtf does this do?
   useEffect(() => {
     const tmp = { ...user };
     tmp.deck = cardsInDeck
