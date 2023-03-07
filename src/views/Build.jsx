@@ -39,7 +39,7 @@ const Build = () => {
     setCardsInDeck(tmp);
   }, []);
 
-  //wtf does this do?
+  // Keep front-end data in-sync with db
   useEffect(() => {
     const tmp = { ...user };
     tmp.deck = cardsInDeck

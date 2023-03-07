@@ -11,18 +11,19 @@ const LocalGame = () => {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
-    const handleDiscard = (idx) => {
-        const tmpGame = {...gameData};
-        let hand, drawPile;
-        if(gameData.isPlayer1Turn) 
-            ({ hand, drawPile } = tmpGame.p1Cards); 
-        else
-            ({ hand, drawPile } = tmpGame.p2Cards); 
-        hand.splice(idx,1);
-        if(drawPile.length > 0)
-            hand.push(drawPile.pop());
-        setGameData(tmpGame);
-    };
+    // const handleDiscard = (idx) => {
+    //     const tmpGame = {...gameData};
+    //     // let hand, drawPile;
+    //     if(gameData.isPlayer1Turn) 
+    //         ({ hand, drawPile, discardPile } = tmpGame.p1Cards); 
+    //     else
+    //         ({ hand, drawPile, discardPile } = tmpGame.p2Cards);
+    //     discardPile.push(hand[idx]);     
+    //     hand.splice(idx,1);
+    //     if(drawPile.length > 0)
+    //         hand.push(drawPile.pop());
+    //     setGameData(tmpGame);
+    // };
 
     const handleDraw = () => {
         const tmpGame = {...gameData};
@@ -55,8 +56,8 @@ const LocalGame = () => {
         tmpGame.isGameOver = false;
         tmpGame.isPlayer1Turn = true;
         tmpGame.phase = 1;
-        tmpGame.p1Cards = {hand:[], drawPile: randomize([...tmpGame.player1.deck])};
-        tmpGame.p2Cards = {hand:[], drawPile: randomize([...tmpGame.player2.deck])};
+        tmpGame.p1Cards = {hand:[], drawPile: randomize([...tmpGame.player1.deck]), discardPile:[]};
+        tmpGame.p2Cards = {hand:[], drawPile: randomize([...tmpGame.player2.deck]), discardPile:[]};
         tmpGame.caravans = tmpGame.caravanNames.map((name, i) => {
             const caravan = {
                 name: name,
@@ -78,7 +79,7 @@ const LocalGame = () => {
             tmpGame.p1Cards.hand.push(tmpGame.p1Cards.drawPile.pop());
             tmpGame.p2Cards.hand.push(tmpGame.p2Cards.drawPile.pop());
         }
-        tmpGame.handleDiscard = handleDiscard;
+        // tmpGame.handleDiscard = handleDiscard;
         tmpGame.handleDraw = handleDraw;
         setGameData(tmpGame);
     },[]);
@@ -94,10 +95,10 @@ const LocalGame = () => {
                 </div>
                 <div className="status-area">
                     <div className={'rotate-180'} >
-                        <PlayerStatus isFaceUp={false} playerCards={gameData.isPlayer1Turn?gameData.p2Cards:gameData.p1Cards} />
+                        <PlayerStatus isFaceUp={false} owner={gameData.isPlayer1Turn?'player2':'player1'} playerCards={gameData.isPlayer1Turn?gameData.p2Cards:gameData.p1Cards} />
                     </div>
                     <div>
-                        <PlayerStatus isFaceUp={true} playerCards={gameData.isPlayer1Turn?gameData.p1Cards:gameData.p2Cards} />
+                        <PlayerStatus isFaceUp={true} owner={gameData.isPlayer1Turn?'player1':'player2'} playerCards={gameData.isPlayer1Turn?gameData.p1Cards:gameData.p2Cards} />
                     </div>  
                 </div>
             </div>:null}

@@ -40,7 +40,8 @@
     margin: .3em;
 }
 
-.hand img{
+.hand_card{
+    display: inline;
     margin-right: -5.5em;
 }
 
