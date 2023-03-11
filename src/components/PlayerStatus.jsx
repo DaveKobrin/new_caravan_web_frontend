@@ -19,7 +19,7 @@ const PlayerStatus = (props) => {
     tmpDragData.dragTarget = targetLoc;
     tmpDragData.targetCallback = dragDropDiscard;
     setDragData(tmpDragData);
-    console.log({tmpDragData}, {gameData}, {owner});
+    console.log({tmpDragData}, JSON.stringify(gameData), {owner});
   }
 
   const dragLeave = (e) => {
@@ -53,6 +53,9 @@ const PlayerStatus = (props) => {
         // remove item from old location
         srcLoc.splice(tmpDragData.dragItem.idx, 1);
         setGameData(tmpGameData);
+        console.log( JSON.stringify(gameData), 'before handleEndMove');
+        gameData.handleEndMove(tmpGameData);
+        console.log({gameData}, 'after handleEndMove');
     }
     // clear dragging info as player is not dragging anymore
     tmpDragData.dragTarget = null;
@@ -69,6 +72,7 @@ const PlayerStatus = (props) => {
         tmpDragData.dragItem = {};
         tmpDragData.dragItem.srcLoc = [gameData.isPlayer1Turn?'p1Cards':'p2Cards', 'hand'];
         tmpDragData.dragItem.idx = idx;
+        tmpDragData.dragItem.isModifier = hand[idx].isModifier;
     }
     setDragData(tmpDragData);
     console.log({tmpDragData});
@@ -83,6 +87,7 @@ const PlayerStatus = (props) => {
 
   return (
     <div className='player-status'>
+        {console.log({gameData}, "in player-status return")}
         <div className='hand'>
             {hand.map((card, idx)=>{
                 return (
