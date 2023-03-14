@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import './GameBoard.css';
 import { GameContext, UserContext } from "../App";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { CaravanPair, PlayerStatus } from '../components';
 
@@ -15,11 +15,21 @@ const LocalGame = () => {
         let value = 0;
         // calc the actual value
         // cards will be an array of arrays that hold card data elements
+        cards?.forEach((cardRow)=>{
+            let rowVal = 0;
+            cardRow.forEach((card)=>{
+                rowVal += card.value;   //all modifier cards have a value of 0
+                if (card.name === 'King') {     // King modifies value by *2 of previous row value
+                    rowVal *= 2;
+                }
+            });
+            value += rowVal;
+        });
         return value;
     }
 
     const calcAllCaravans = (data) => {
-        console.log({gameData}, "in calcAllCaravans")
+        // console.log({gameData}, "in calcAllCaravans")
         const tmpGameData = {...data};
         const { caravans } = tmpGameData;
         // debugger;
@@ -63,7 +73,7 @@ const LocalGame = () => {
     }
 
     const handleEndMove = (data) => {
-        console.log(JSON.stringify(data), "in handleEndMove")
+        // console.log(JSON.stringify(data), "in handleEndMove")
         // calc caravan values
         calcAllCaravans(data);
         // check for win conditions
@@ -92,26 +102,18 @@ const LocalGame = () => {
             // toggle isPlayer1Turn
             tmpGame.isPlayer1Turn = !tmpGame.isPlayer1Turn;
             setGameData(tmpGame);
-            console.log({tmpGame}, 'in handleEndMove')
+            // console.log({tmpGame}, 'in handleEndMove')
         } else {
-            // handleWin(winner);
+            handleWin(winner);
         }
-
-        // let hand, drawPile, discardPile;
-        // if(gameData.isPlayer1Turn) 
-        //     ({ hand, drawPile, discardPile } = tmpGame.p1Cards); 
-        // else
-        //     ({ hand, drawPile, discardPile } = tmpGame.p2Cards);
-        // discardPile.push(hand[idx]);     
-        // hand.splice(idx,1);
-        // if(drawPile.length > 0)
-        //     hand.push(drawPile.pop());
     };
 
-    // const handleDraw = () => {
-    //     const tmpGame = {...gameData};
-    //     setGameData(tmpGame);
-    // }
+    const handleWin = (winner) => {
+        const tmpGame = {...gameData};
+        tmpGame.phase = 3;
+        setGameData(tmpGame);
+        console.log({gameData}, `Player ${winner} has won`);
+    }
 
     const randomize = (array) => {
         for(let i=0; i<array.length; i++){

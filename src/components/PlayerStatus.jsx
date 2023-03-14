@@ -19,43 +19,66 @@ const PlayerStatus = (props) => {
     tmpDragData.dragTarget = targetLoc;
     tmpDragData.targetCallback = dragDropDiscard;
     setDragData(tmpDragData);
-    console.log({tmpDragData}, JSON.stringify(gameData), {owner});
+    // console.log({tmpDragData}, JSON.stringify(gameData), {owner});
   }
 
   const dragLeave = (e) => {
     setTimeout(()=>{
         // e.preventDefault();
         const tmpDragData = {...dragData};
-        console.log({tmpDragData}, 'here');
+        // console.log({tmpDragData}, 'here');
         tmpDragData.dragTarget = null;
         tmpDragData.targetCallback = null;
         setDragData(tmpDragData);
-    },1);
+    },1000);
   }
 
   const dragDropDiscard = (e, data) => {
     // e.preventDefault();
     const tmpDragData = {...data};
-    console.log({dragData}, {data}, 'in discard');
-    if((gameData.isPlayer1Turn && owner === 'player1') || (!gameData.isPlayer1Turn && owner === 'player2') ) {
+    const tmpGameData = {...gameData};
+    
+    // find source and dest locations
+    let dropLoc = tmpGameData;
+    tmpDragData.dragTarget.forEach(el => {
+        dropLoc = dropLoc[el];
+    });
+    let srcLoc = tmpGameData;
+    tmpDragData.dragItem.srcLoc.forEach(el => {
+        srcLoc = srcLoc[el];
+    });
+
+    if (tmpDragData.dragItem.srcLoc[tmpDragData.dragItem.srcLoc.length -1] === 'hand') {
+      // console.log({dragData}, {data}, 'in discard');
+      if((gameData.isPlayer1Turn && owner === 'player1') || (!gameData.isPlayer1Turn && owner === 'player2') ) {
         // move dragged item
         // add item to new location
-        const tmpGameData = {...gameData};
-        let dropLoc = tmpGameData;
-        tmpDragData.dragTarget.forEach(el => {
-            dropLoc = dropLoc[el];
-        });
-        let srcLoc = tmpGameData;
-        tmpDragData.dragItem.srcLoc.forEach(el => {
-            srcLoc = srcLoc[el];
-        });
         dropLoc.push(srcLoc[tmpDragData.dragItem.idx]);
         // remove item from old location
         srcLoc.splice(tmpDragData.dragItem.idx, 1);
         setGameData(tmpGameData);
-        console.log( JSON.stringify(gameData), 'before handleEndMove');
+        // console.log( JSON.stringify(gameData), 'before handleEndMove');
+        if (gameData.phase === 2) {   
+          // don't process end of turn in init phase allow to draw cards if player doesn't have any number cards to play... 
+          // need to revisit this to prevent player from stacking their hand at start of game
+          gameData.handleEndMove(tmpGameData);
+        }
+        // console.log({gameData}, 'after handleEndMove');
+      }
+    } else if (tmpDragData.dragItem.srcLoc[0] === 'caravans' && gameData.phase === 2) {
+      // discarding entire caravan 
+      if((gameData.isPlayer1Turn && owner === 'player1') || (!gameData.isPlayer1Turn && owner === 'player2') ) {
+        // move dragged item
+        // add item to new location
+        dropLoc.push(srcLoc[tmpDragData.dragItem.idx]);
+        // remove item from old location
+        tmpGameData.caravans[tmpDragData.dragItem.srcLoc[1]].cards = [];
+        // srcLoc.splice(tmpDragData.dragItem.idx, 1);
+        setGameData(tmpGameData);
+        // console.log( JSON.stringify(gameData), 'before handleEndMove');
         gameData.handleEndMove(tmpGameData);
-        console.log({gameData}, 'after handleEndMove');
+        // console.log({gameData}, 'after handleEndMove');
+      }
     }
     // clear dragging info as player is not dragging anymore
     tmpDragData.dragTarget = null;
@@ -75,7 +98,7 @@ const PlayerStatus = (props) => {
         tmpDragData.dragItem.isModifier = hand[idx].isModifier;
     }
     setDragData(tmpDragData);
-    console.log({tmpDragData});
+    console.log({dragData});
   }
 
   const dragEnd = (e) => {
