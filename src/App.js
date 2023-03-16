@@ -11,6 +11,7 @@ import React, { useState} from 'react';
 export const ContextContainer = React.createContext();
 export const UserContext = React.createContext();
 export const GameContext = React.createContext();
+export const DragContext = React.createContext();
 
 const App = () => {
   const [allCards, setAllCards] = useState();
