@@ -78,7 +78,7 @@ const CardRow = (props) => {
     }
 
     return (
-        <div onDragEnter={dragEnter} onDragLeave={dragLeave} >
+        <div onDragEnter={dragEnter} onDragLeave={dragLeave} className={'caravan-row-card'}>
             {cards.map((card,i)=><CardImg key={i} src={API + '/images/' + card.face} alt={card.name + ' of ' + card.suit} isFace={true} />)}
         </div>
     );

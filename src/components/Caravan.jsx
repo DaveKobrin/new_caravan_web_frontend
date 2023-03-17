@@ -88,7 +88,12 @@ const Caravan = (props) => {
     return (
         <div className='caravan' onDragEnter={dragEnter} onDragLeave={dragLeave} draggable onDragStart={(e)=>{dragStart(e, idx)}} onDragEnd={(e)=>{dragEnd(e)}}>
             {caravan.cards?.length?
-                caravan.cards.map((cardRow,i) => <CardRow key={i} caravan={idx} cards={cardRow} row={i} className='card-row' />) 
+                caravan.cards.map((cardRow,i) => {
+                    return (
+                        <div className='card-row'>
+                            <CardRow key={i} caravan={idx} cards={cardRow} row={i} />
+                        </div>
+                    )})
                 : (<div className='drop-target'>Start Here</div>)
             }
         </div>
