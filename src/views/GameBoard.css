@@ -56,10 +56,21 @@
 
 .caravan {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     border: 1px solid green;
     min-height: 25em;
     min-width: 20em;
     padding: 1em;
+}
+
+.card-row:nth-child(n+2){
+    display: inline;
+    margin-top: -7.4em;
+}
+
+.caravan-row-card:nth-child(n+2) {
+    display: inline;
+    margin-left: -5em;
 }
