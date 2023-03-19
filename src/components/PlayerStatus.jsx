@@ -96,6 +96,7 @@ const PlayerStatus = (props) => {
         tmpDragData.dragItem.srcLoc = [gameData.isPlayer1Turn?'p1Cards':'p2Cards', 'hand'];
         tmpDragData.dragItem.idx = idx;
         tmpDragData.dragItem.isModifier = hand[idx].isModifier;
+        tmpDragData.dragItem.name = hand[idx].name;
     }
     setDragData(tmpDragData);
     console.log({dragData});

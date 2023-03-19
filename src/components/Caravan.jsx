@@ -74,6 +74,7 @@ const Caravan = (props) => {
                 tmpDragData.dragItem.srcLoc = ['caravans', idx, 'cards', 0];
                 tmpDragData.dragItem.idx = 0;
                 tmpDragData.dragItem.isModifier = false;
+                tmpDragData.dragItem.name = gameData.caravans[idx].cards[0][0].name;
             }
             setDragData(tmpDragData);
             console.log({dragData}, 'in caravan dragStart');

@@ -16,16 +16,21 @@ const CardRow = (props) => {
         const tmpDragData = {...dragData};
         if (tmpDragData.dragItem.srcLoc[tmpDragData.dragItem.srcLoc.length -1] === 'hand') {    //can only drop cards from your hand
             let targetLoc = [];
-            if (tmpDragData.dragItem.isModifier) {
-                if (cards[row].length === 0) {      //cannot drop modifier on empty row
-                    return; 
-                }
-                targetLoc = ['caravans', caravan, 'cards', row]; //set drop target for a modifier on this row
-                console.log({tmpDragData}, targetLoc, 'set target for a modifier card in dragEnter');
-            } else {    //card is a value card
-                targetLoc = ['caravans', caravan, 'cards']; //set drop target for a new card row
-                console.log({tmpDragData}, targetLoc, 'set target for a new CardRow in dragEnter');
+            // debugger;
+            if (tmpDragData.dragItem.isModifier && cards.length === 0) {
+                return;     //cannot drop modifier on empty row
             }
+
+            targetLoc = ['caravans', caravan, 'cards']; //set drop target for a new card row
+            
+            if (tmpDragData.dragItem.name === 'Queen') {     //Queen applies to last card row
+                tmpDragData.dragTargetRow = gameData.caravans[caravan].cards.length-1;
+            } else {    // other modifiers apply to selected row
+                tmpDragData.dragTargetRow = row;
+            }
+            
+            console.log({tmpDragData}, targetLoc, 'set target for a new CardRow in dragEnter');
+
             tmpDragData.dragTarget = targetLoc;
             tmpDragData.targetCallback = dragDropCardRow;
             setDragData(tmpDragData);
@@ -61,6 +66,32 @@ const CardRow = (props) => {
         
         if (tmpDragData.dragItem.isModifier) {
             //do the modifier specific code
+            //KING - push to this row
+            if (tmpDragData.dragItem.name === 'King') {
+                dropLoc[tmpDragData.dragTargetRow].push(srcLoc[tmpDragData.dragItem.idx]);
+                srcLoc.splice(tmpDragData.dragItem.idx, 1);
+            }
+            //JACK - remove this row
+            if (tmpDragData.dragItem.name === 'Jack') {
+                //TODO: place dropLoc's value card into owner's discard pile
+                dropLoc.splice(tmpDragData.dragTargetRow, 1);
+                //TODO: place JACK into owner's discard pile
+                srcLoc.splice(tmpDragData.dragItem.idx, 1);
+                
+            }
+            //QUEEN - reverse direction and change suit to match this queen
+            if (tmpDragData.dragItem.name === 'Queen') {
+                dropLoc[tmpDragData.dragTargetRow].push(srcLoc[tmpDragData.dragItem.idx]);
+                srcLoc.splice(tmpDragData.dragItem.idx, 1);
+                //TODO: process direction and suit change
+            }
+            //JOKER - on ace - remove all value cards of the ace's suit from the board OTHER than THIS ace
+            //      - on any other value card - remove all cards of that value from board OTHER than THIS card 
+            if (tmpDragData.dragItem.name === 'Red Joker' || tmpDragData.dragItem.name === 'Black Joker') {
+                dropLoc[tmpDragData.dragTargetRow].push(srcLoc[tmpDragData.dragItem.idx]);
+                srcLoc.splice(tmpDragData.dragItem.idx, 1);
+                //TODO: process the removal of other cards
+            }
         } else {
             //handle a value card
             // move dragged item
