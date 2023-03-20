@@ -11,8 +11,8 @@ const CaravanPair = (props) => {
         <div className={'rotate-180'}>
             <Caravan idx={idx1}/>
         </div>
-        <h2>{gameData.caravans[idx1].name}</h2>
-        <h2>{gameData.caravans[idx2].name}</h2>
+        <h2>{gameData.caravans[idx1].name} {gameData.caravans[idx1].value}</h2>
+        <h2>{gameData.caravans[idx2].name} {gameData.caravans[idx2].value}</h2>
         <div>
             <Caravan idx={idx2}/>
         </div>
